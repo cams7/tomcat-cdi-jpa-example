@@ -1,0 +1,20 @@
+#git rm --cached .classpath
+#git rm -r --cached .settings
+
+#Linux files
+*~
+
+#Windows file
+Thumbs.db
+
+#Maven directories
+target/
+
+#Eclipse files and directories
+.classpath
+.project
+.settings/
+bin/
+.metadata/
+
+*.class
