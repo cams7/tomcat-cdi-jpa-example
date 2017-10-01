@@ -6,15 +6,14 @@ package exemplo.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import exemplo.model.Contato;
+import br.com.cams7.app.model.entity.Contato;
+import br.com.cams7.app.service.ContatoService;
 
 /**
  * @author César Magalhães
@@ -22,10 +21,10 @@ import exemplo.model.Contato;
  */
 @WebServlet("/vaisalvar")
 @SuppressWarnings("serial")
-public class Salvar extends HttpServlet {
+public class ContatoServlet extends HttpServlet {
 
 	@Inject
-	private EntityManager em;
+	private ContatoService contatoService;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,18 +32,14 @@ public class Salvar extends HttpServlet {
 		String nome = req.getParameter("nome");
 		String telefone = req.getParameter("telefone");
 
-		Contato c = null;
+		Contato contato = new Contato();
 		if (!"".equals(id))
-			c = em.find(Contato.class, Long.parseLong(id));
-		else
-			c = new Contato();
+			contato.setId(Long.parseLong(id));
 
-		c.setNome(nome);
-		c.setTelefone(telefone);
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		em.persist(c);
-		transaction.commit();
+		contato.setNome(nome);
+		contato.setTelefone(telefone);
+
+		contatoService.salva(contato);
 
 		// devemos ainda redirecionar para a tela de resultado
 		req.getRequestDispatcher("/index.jsp").forward(req, resp);

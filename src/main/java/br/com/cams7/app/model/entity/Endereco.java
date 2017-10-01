@@ -1,9 +1,7 @@
 /**
  * 
  */
-package exemplo.model;
-
-import java.io.Serializable;
+package br.com.cams7.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,32 +13,51 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
+ * Entidade da referente aos entereços do contato
+ * 
  * @author César Magalhães
  *
  */
 @Entity
 @SuppressWarnings("serial")
-public class Endereco implements Serializable {
+public class Endereco extends AbstractEntity<Long> {
 
+	/**
+	 * Id do endereço
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "endereco_id")
 	private Long id;
 
+	/**
+	 * Logradouro
+	 */
 	private String rua;
 
+	/**
+	 * Número da residencia
+	 */
 	private int numero;
 
+	/**
+	 * Complemento ao endereço
+	 */
 	private String complemento;
 
+	/**
+	 * Contato ao qual pertence o endereço
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "contato_id", referencedColumnName = "contato_id")
 	private Contato contato;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
