@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Resource name="BeanManager" auth="Container"
-		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" />
+	<Resource name="${data.source}" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+		driverClassName="${db.driverClassName}" url="${db.connection.url}"
+		username="${db.username}" password="${db.password}" maxTotal="50"
+		maxIdle="10" maxWaitMillis="-1" />
+	<!-- Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" /-->
 </Context>

@@ -18,3 +18,6 @@ bin/
 .metadata/
 
 *.class
+
+#Databases
+db/
